@@ -46,10 +46,10 @@ public class UpWorkTestApplication implements CommandLineRunner {
 				connect();
 				break;
 			case 3:
-				System.out.println("opcion 3:");
+				query();
 				break;
 			case 9:
-				System.out.println("exit:");
+				System.out.println("See you soon...:");
 				break;
 			default:
 				System.out.println("wrong option:");
@@ -90,12 +90,38 @@ public class UpWorkTestApplication implements CommandLineRunner {
 					int left = Integer.valueOf(values[0]);
 					int right = Integer.valueOf(values[1]);
 					network.connect(left, right);
-					System.out.println("Elements conected successfully .." + CARRIAGE_RETURN);
+					System.out.println("Elements connected successfully .." + CARRIAGE_RETURN);
 					created = true;
 				} catch (Exception e) {
 					System.out.println("invalid input.." + e.getMessage() + CARRIAGE_RETURN);
 				}
 			}while(!created);
+			
+		} else {
+			System.out.println("Error - You must create the elements first .." + CARRIAGE_RETURN);
+		}
+	}
+	
+	private void query() {
+		if (network != null) {
+			boolean finished = false;
+			do {
+				System.out.println(printQueryMenu());
+				String[] values = scanner.next().split(",");
+				try {
+					checkArgument(values.length == 2, "wrong format");
+					int left = Integer.valueOf(values[0]);
+					int right = Integer.valueOf(values[1]);
+					boolean areConnected = network.query(left, right);
+					if (areConnected)
+						System.out.println("Elements are Connected.." + CARRIAGE_RETURN);
+					else
+						System.out.println("Elements are not Connected.." + CARRIAGE_RETURN);
+					finished = true;
+				} catch (Exception e) {
+					System.out.println("invalid input.." + e.getMessage() + CARRIAGE_RETURN);
+				}
+			}while(!finished);
 			
 		} else {
 			System.out.println("Error - You must create the elements first .." + CARRIAGE_RETURN);
@@ -132,9 +158,9 @@ public class UpWorkTestApplication implements CommandLineRunner {
 	private String printQueryMenu() {
 		StringBuilder menu = new StringBuilder();
 		menu.append(CARRIAGE_RETURN);
-		menu.append("***********Elements Creation***********");
+		menu.append("***********Query elements***********");
 		menu.append(CARRIAGE_RETURN);
-		menu.append("Type the amount of elements:");
+		menu.append("Type elements to query - format -> x,y:");
 		menu.append(CARRIAGE_RETURN);
 		return menu.toString();
 	}
@@ -144,7 +170,7 @@ public class UpWorkTestApplication implements CommandLineRunner {
 		menu.append(CARRIAGE_RETURN);
 		menu.append("***********Elements Connection***********");
 		menu.append(CARRIAGE_RETURN);
-		menu.append("Type elements to connect format -> x,y:");
+		menu.append("Type elements to connect - format -> x,y:");
 		menu.append(CARRIAGE_RETURN);
 		return menu.toString();
 	}
