@@ -121,8 +121,8 @@ public class UpWorkTestApplication implements CommandLineRunner {
 				} catch (Exception e) {
 					System.out.println("invalid input.." + e.getMessage() + CARRIAGE_RETURN);
 				}
-			}while(!finished);
-			
+			} while (!finished);
+
 		} else {
 			System.out.println("Error - You must create the elements first .." + CARRIAGE_RETURN);
 		}
