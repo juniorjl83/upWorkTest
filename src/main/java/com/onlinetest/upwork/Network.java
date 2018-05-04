@@ -1,9 +1,9 @@
 package com.onlinetest.upwork;
 
-import java.util.Optional;
 import java.util.Set;
 
-import org.assertj.core.util.Sets;
+import com.google.common.collect.Sets;
+
 import static com.google.common.base.Preconditions.checkArgument;
 
 import lombok.Getter;
