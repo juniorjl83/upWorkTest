@@ -29,14 +29,14 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void queryTestNotConected() {
+	public void queryNotDirectlyConectedTest() {
 		Network network = new Network(6);
 		boolean areConected = network.query(1, 3);
 		assertFalse(areConected);
 	}
 
 	@Test
-	public void queryTestConected() {
+	public void queryDirectlyConnectedTest() {
 		Network network = new Network(6);
 		network.connect(1, 3);
 
@@ -46,9 +46,35 @@ public class UpWorkTestApplicationTests {
 		areConected = network.query(3, 1);
 		assertTrue(areConected);
 	}
+	
+	@Test
+	public void queryIndirectlyConnectedTest() {
+		Network network = new Network(6);
+		network.connect(1, 3);
+		network.connect(3, 6);
+		
+		boolean areConected = network.query(6, 1);
+		assertTrue(areConected);
+
+		areConected = network.query(1, 6);
+		assertTrue(areConected);
+	}
+	
+	@Test
+	public void queryNotIndirectlyConnectedTest() {
+		Network network = new Network(6);
+		network.connect(1, 3);
+		network.connect(3, 6);
+		
+		boolean areConected = network.query(6, 2);
+		assertFalse(areConected);
+
+		areConected = network.query(2, 6);
+		assertFalse(areConected);
+	}
 
 	@Test
-	public void connectTestAlreadyConnectedException() {
+	public void connectAlreadyConnectedExceptionTest() {
 		Network network = new Network(6);
 		network.connect(1, 3);
 
@@ -61,7 +87,7 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void queryTestRightElementDoesntExist() {
+	public void queryRightElementDoesntExistTest() {
 		Network network = new Network(5);
 		try {
 			network.query(3, 6);
@@ -72,7 +98,7 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void queryTestLeftElementDoesntExist() {
+	public void queryLeftElementDoesntExistTest() {
 		Network network = new Network(5);
 		try {
 			network.query(6, 3);
@@ -82,7 +108,7 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void queryTestRightValueLessThanOne() {
+	public void queryRightValueLessThanOneTest() {
 		Network network = new Network(5);
 		try {
 			network.query(3, 0);
@@ -92,7 +118,7 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void queryTestLefttValueLessThanOne() {
+	public void queryLefttValueLessThanOneTest() {
 		Network network = new Network(5);
 		try {
 			network.query(-1, 3);
@@ -102,7 +128,7 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void connectTestRightElementDoesntExist() {
+	public void connectRightElementDoesntExistTest() {
 		Network network = new Network(5);
 		try {
 			network.connect(3, 6);
@@ -112,7 +138,7 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void connectTestLeftElementDoesntExist() {
+	public void connectLeftElementDoesntExistTest() {
 		Network network = new Network(5);
 		try {
 			network.connect(6, 3);
@@ -122,7 +148,7 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void connectTestRightValueLessThanOne() {
+	public void connectRightValueLessThanOneTest() {
 		Network network = new Network(5);
 		try {
 			network.connect(3, 0);
@@ -132,7 +158,7 @@ public class UpWorkTestApplicationTests {
 	}
 
 	@Test
-	public void connectTestLefttValueLessThanOne() {
+	public void connectLefttValueLessThanOneTest() {
 		Network network = new Network(5);
 		try {
 			network.connect(-2, 4);

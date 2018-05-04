@@ -11,5 +11,16 @@ import lombok.Setter;
 @Builder
 public class Element {
 	private int value;
-	private Set<Integer> conections; 
+	private Set<Element> conections;
+
+	/**
+	 * checks if an element is connected with this element
+	 * @param toSearch
+	 * 	- element to search
+	 * @return
+	 */
+	public boolean isConnected(Element toSearch) {
+		return conections.stream()
+				.anyMatch(element -> element.equals(toSearch));
+	}
 }
