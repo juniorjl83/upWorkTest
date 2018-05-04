@@ -77,6 +77,7 @@ public class Network {
 		// validates input parameters are valid
 		checkArgument(elements.size() >= left && left > 0, "Invalid left value.");
 		checkArgument(elements.size() >= right && right > 0, "Invalid right value.");
+		checkArgument(left != right, "Left and right must be different.");
 	}
 	
 	/**
